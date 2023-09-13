@@ -47,9 +47,16 @@ public class Operacion {
     }
     
     //punto 6
-    /*
-    Resuelto desde la interfaz
-    */
+    public String[] prefijarCaracter(int[] arreglo, char caracter) throws Exception{
+        String[] salida;
+        salida = new String[arreglo.length];
+        
+        for(int i=0;i<arreglo.length;i++){
+            salida[i] = String.valueOf(caracter)+arreglo[i];
+        }
+        
+        return salida;
+    }
     
     //punto 7
     public void generarVector(int[] arreglo){
@@ -61,7 +68,6 @@ public class Operacion {
     }
     
     //punto 8
-    
     //valor de retorno = -1 representa una arreglo sin negativos
     public int posPrimerMenorCero(int[] arreglo){
         int pos=-1;

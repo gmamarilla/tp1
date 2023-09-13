@@ -13,13 +13,13 @@ import Modelo.Operacion;
  * @author Gustavo
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    private Operacion op;
+    private Operacion operacion;
     private int[][] matriz5x10;
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal(Operacion op) {
-        this.op=op;        
+        this.operacion=op;        
         this.matriz5x10=new int[5][10];
         initComponents();
     }
@@ -554,7 +554,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             double valor2=Double.valueOf(this.jTextField2.getText());
             double resultado;
             
-            resultado=op.Suma(valor1, valor2);
+            resultado=operacion.Suma(valor1, valor2);
             
             this.jLabel1.setText(String.valueOf(resultado));
         }catch(Exception e){
@@ -567,7 +567,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             double valor=Double.valueOf(this.jTextField5.getText());
             double resultado;
             
-            resultado=op.metrosApulgadas(valor);
+            resultado=operacion.metrosApulgadas(valor);
             
             this.jLabel8.setText(String.valueOf(resultado));
         }catch(Exception e){
@@ -580,7 +580,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             double valor=Double.valueOf(this.jTextField4.getText());
             double resultado;
             
-            resultado=op.metrosApies(valor);
+            resultado=operacion.metrosApies(valor);
             
             this.jLabel9.setText(String.valueOf(resultado));
         }catch(Exception e){
@@ -594,7 +594,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             double valor=Double.valueOf(this.jTextField3.getText());
             double resultado;
 
-            resultado=op.cuadrado(valor);
+            resultado=operacion.cuadrado(valor);
 
             this.jLabel4.setText(String.valueOf(resultado));
         }catch(Exception e){
@@ -616,7 +616,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             double catO=Double.valueOf(this.jTextField7.getText());
             double resultado;
             
-            resultado=op.hipotenusa(catA, catO);
+            resultado=operacion.hipotenusa(catA, catO);
             
             this.jLabel5.setText(String.valueOf(resultado));
         }catch(Exception e){
@@ -637,7 +637,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 throw new Exception();
             }
             
-            resultado=op.factorial(valor);
+            resultado=operacion.factorial(valor);
             
             this.jLabel10.setText(String.valueOf(resultado));
         }catch(Exception e){
@@ -646,16 +646,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btFactorialActionPerformed
 
     private void btCargar10numerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCargar10numerosActionPerformed
-        int[] arreglo=new int[10];
+        int[] arEnteros=new int[10];
+        String[] arString = new String[10];
         String salida="";
         
         try{
             for(int i=0;i<10;i++){
-                arreglo[i]=Integer.valueOf(JOptionPane.showInputDialog(i+1+" - "+"Ingrese un número."));
+                arEnteros[i]=Integer.valueOf(JOptionPane.showInputDialog(i+1+" - "+"Ingrese un número."));
             }
             
-            for(int i:arreglo){
-                salida+="0"+i+", ";
+            arString = operacion.prefijarCaracter(arEnteros, '0');
+            
+            for(int i:arEnteros){
+                salida+=arString[i]+", ";
             }
             
             //se quitan los 2 ultimos caracteres
@@ -672,7 +675,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int[] arreglo=new int[10];
         String salida="";
         
-        op.generarVector(arreglo);
+        operacion.generarVector(arreglo);
         
         for(int i:arreglo){
             salida+=i+" ";
@@ -689,14 +692,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 arreglo[i]=Integer.valueOf(JOptionPane.showInputDialog(i+1+" - "+"Ingrese un número."));
             }
             
-            if(op.posPrimerMenorCero(arreglo)==-1){
+            if(operacion.posPrimerMenorCero(arreglo)==-1){
                 JOptionPane.showMessageDialog(null, "El arreglo no tiene valores negativos.");
             }else{
-                JOptionPane.showMessageDialog(null, "Posición del primer valor menor a 0 = "+op.posPrimerMenorCero(arreglo));
+                JOptionPane.showMessageDialog(null, "Posición del primer valor menor a 0 = "+operacion.posPrimerMenorCero(arreglo));
             }
             
-            JOptionPane.showMessageDialog(null, "Valor máximo = "+op.valorMaximo(arreglo));
-            JOptionPane.showMessageDialog(null, "Posición del valor máximo = "+op.posValorMaximo(arreglo));
+            JOptionPane.showMessageDialog(null, "Valor máximo = "+operacion.valorMaximo(arreglo));
+            JOptionPane.showMessageDialog(null, "Posición del valor máximo = "+operacion.posValorMaximo(arreglo));
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Valor no válido. Ingrese números.");
         }
@@ -707,7 +710,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String salida="";
         
         try{
-            op.generarMatrizUnidad(matriz);
+            operacion.generarMatrizUnidad(matriz);
             
             for(int i=0;i<10;i++){
                 for(int j=0;j<10;j++){
@@ -726,7 +729,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btCargarMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCargarMatrizActionPerformed
         String salida="";
         
-        this.op.cargarMatriz(matriz5x10, 5, 10);
+        this.operacion.cargarMatriz(matriz5x10, 5, 10);
         
         for(int i=0;i<5;i++){
             for(int j=0;j<10;j++){
@@ -740,7 +743,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btCargarMatrizActionPerformed
 
     private void btSumFilasMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSumFilasMatrizActionPerformed
-        int[] sumas=this.op.sumarFilasMatriz(matriz5x10, 5, 10);
+        int[] sumas=this.operacion.sumarFilasMatriz(matriz5x10, 5, 10);
         String salida="";
         
         for(int i:sumas){
